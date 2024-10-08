@@ -1,0 +1,23 @@
+{ 
+    "data": [
+        {
+            "username": "rubius",
+            "name": "Ruben",
+            "initialIsFollowing": false,
+            "avatarUrl": "https://unavatar.io/twitch/rubius"
+        },
+        {
+            "username": "test",
+            "name": "Test",
+            "initialIsFollowing": true,
+            "avatarUrl": "https://unavatar.io/test"
+        },
+        {
+            "username": "auronplay",
+            "name": "Auron",
+            "initialIsFollowing": true,
+            "avatarUrl": "https://unavatar.io/twitch/auronplay"
+        }
+    ],
+    "error": "false"
+}
