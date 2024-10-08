@@ -1,5 +1,5 @@
 import { AbstractBaseEntityService } from "../abstract-base-entity-service/abstract-base-entity.service";
-const USERS_URL = "../../../../public/mocks/users.json";
+const USERS_URL = "/mocks/users.json";
 
 export class UserService extends AbstractBaseEntityService {
   constructor() {
