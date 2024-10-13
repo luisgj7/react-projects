@@ -7,8 +7,6 @@ function App() {
   const [ search, setSearch ] = useState<string>("");
   const { movies, getMovies, loading } = useMovies({ search });
 
-  console.log("Render App");
-
   const habdleSearchChange = (search: string): void => {
     setSearch(search);
   };
@@ -26,6 +24,8 @@ function App() {
         {
           <Search
             useTypeAhead={true}
+            ms={650}
+            hideSearchButton={false}
             placeHolder={"Avengers, Alien, Ironman..."}
             onSearchChange={habdleSearchChange}
           />

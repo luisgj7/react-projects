@@ -20,6 +20,8 @@ export const Search: FunctionComponent<SearchProps> = ({
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+    if (error) return;
+    
     onSearchChange(search);
   };
 
@@ -29,7 +31,7 @@ export const Search: FunctionComponent<SearchProps> = ({
     if (debouncedSearch && !error) {
       onSearchChange(debouncedSearch);
     }
-  }, [useTypeAhead, debouncedSearch, error]);
+  }, [ useTypeAhead, search, debouncedSearch, error ]);
 
   return (
     <div className="search">

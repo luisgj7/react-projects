@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 
 export function useSearch() {
-  const [search, setSearch] = useState<string>("");
-  const [error, setError] = useState<string | null>(null);
+  const [ search, setSearch ] = useState<string>("");
+  const [ error, setError ] = useState<string | null>(null);
   const isFirstInput = useRef<boolean>(true);
 
   useEffect(() => {
