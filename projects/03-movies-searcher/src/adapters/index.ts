@@ -1,0 +1,1 @@
+export { apiModelToMovie } from './movies.adapter'

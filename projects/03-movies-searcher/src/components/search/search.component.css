@@ -1,0 +1,15 @@
+form {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-error {
+  border: 1px solid red;
+}
