@@ -1,6 +1,6 @@
-export const getAll = async<T>(url: string, endpoint?: string): Promise<BaseEntityResponse<T>> => {
+export const getAll = async<T>(baseUrl: string, endpoint?: string): Promise<BaseEntityResponse<T>> => {
   try {
-    const fullUrl = getUrlSegments(url, endpoint);
+    const fullUrl = getUrlSegments(baseUrl, endpoint);
     const response = await fetch(fullUrl);
 
     if (!response.ok) {

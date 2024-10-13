@@ -7,7 +7,6 @@ export const Search: FunctionComponent<SearchProps> = ({
   ms = 500,
   hideSearchButton = false,
   useTypeAhead = false,
-  onSearchSubmit,
   onSearchChange,
 }) => {
   const { search, setSearch, error } = useSearch();
@@ -21,7 +20,7 @@ export const Search: FunctionComponent<SearchProps> = ({
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    onSearchSubmit(search);
+    onSearchChange(search);
   };
 
   useEffect(() => {
@@ -30,7 +29,6 @@ export const Search: FunctionComponent<SearchProps> = ({
     if (debouncedSearch && !error) {
       onSearchChange(debouncedSearch);
     }
-    
   }, [useTypeAhead, debouncedSearch, error]);
 
   return (
@@ -45,8 +43,7 @@ export const Search: FunctionComponent<SearchProps> = ({
           autoComplete="off"
           placeholder={!search ? placeHolder : ""}
         />
-        {!hideSearchButton ||
-          (useTypeAhead && <button type="submit"> Search </button>)}
+        {!hideSearchButton && <button type="submit"> Search </button>}
       </form>
       {error && <p className="error"> {error} </p>}
     </div>
@@ -59,5 +56,4 @@ export interface SearchProps {
   hideSearchButton?: boolean;
   useTypeAhead?: boolean;
   onSearchChange: (search: string) => void;
-  onSearchSubmit: (search: string) => void;
 }

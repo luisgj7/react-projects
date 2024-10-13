@@ -1,20 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { Movies, Search } from "./components";
 import { useMovies } from "./hooks";
 
 function App() {
-  const [search, setSearch] = useState<string>("");
+  const [ search, setSearch ] = useState<string>("");
   const { movies, getMovies, loading } = useMovies({ search });
 
   console.log("Render App");
 
-  const handleSearchSubmit = (search: string): void => {
-    setSearch(search);
-  };
-
   const habdleSearchChange = (search: string): void => {
-    console.log("OnSearchChange:", search);
     setSearch(search);
   };
 
@@ -31,9 +26,7 @@ function App() {
         {
           <Search
             useTypeAhead={true}
-            ms={650}
             placeHolder={"Avengers, Alien, Ironman..."}
-            onSearchSubmit={handleSearchSubmit}
             onSearchChange={habdleSearchChange}
           />
         }

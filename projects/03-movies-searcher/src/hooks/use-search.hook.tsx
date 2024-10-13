@@ -6,10 +6,6 @@ export function useSearch() {
   const isFirstInput = useRef<boolean>(true);
 
   useEffect(() => {
-    
-    console.log('useSearch:', search);
-
-
     if (isFirstInput.current) {
       isFirstInput.current = search === "";
       return;
