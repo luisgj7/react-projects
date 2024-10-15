@@ -23,7 +23,9 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
-      'react-hooks/exhaustive-deps': false,
+      'react-hooks/exhaustive-deps': [
+          'off'
+      ],
     },
   },
 )

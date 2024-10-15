@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
 import "./App.css";
+import { useEffect, useState } from "react";
 import { Movies, Search } from "./components";
 import { useMovies } from "./hooks";
 
 function App() {
-  const [ search, setSearch ] = useState<string>("");
+  const [search, setSearch] = useState<string>("");
   const { movies, getMovies, loading } = useMovies({ search });
 
-  const habdleSearchChange = (search: string): void => {
+  const handleSearchChange = (search: string): void => {
     setSearch(search);
   };
 
@@ -23,11 +23,11 @@ function App() {
         <h1> Movies Searcher </h1>
         {
           <Search
-            useTypeAhead={true}
+            useTypeAhead={false}
             ms={650}
             hideSearchButton={false}
             placeHolder={"Avengers, Alien, Ironman..."}
-            onSearchChange={habdleSearchChange}
+            onSearchChange={handleSearchChange}
           />
         }
       </header>

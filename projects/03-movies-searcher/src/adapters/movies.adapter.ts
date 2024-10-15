@@ -1,7 +1,7 @@
-import { SearchResult } from "../models";
+import { Movie, MoviesResult } from "../models";
 
-export function apiModelToMovie(searchResult: SearchResult[]) {
-    return (searchResult ?? [])
+export function apiModelToMovie(moviesResult: MoviesResult[]): Movie[] {
+    return (moviesResult ?? [])
         .map(({ imdbID, Title, Year, Poster }) => (
             {
                 id: imdbID,

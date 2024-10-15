@@ -1,13 +1,18 @@
 import "./movies.component.css";
-import { FunctionComponent } from "react";
+import { MovieProps } from "../../models";
+import { FunctionComponent, ReactElement } from "react";
 
-export const Movies: FunctionComponent<MovieProps> = ({ movies }) => {
+export const Movies: FunctionComponent<MovieProps> = ({
+  movies,
+}): ReactElement => {
   const hasMovies = (movies ?? []).length;
 
   return hasMovies ? <MoviesList movies={movies} /> : <NoMoviesResults />;
 };
 
-const MoviesList: FunctionComponent<MovieProps> = ({ movies }) => {
+const MoviesList: FunctionComponent<MovieProps> = ({
+  movies,
+}): ReactElement => {
   return (
     <ul className="movies">
       {movies.map((movie) => (
@@ -21,17 +26,6 @@ const MoviesList: FunctionComponent<MovieProps> = ({ movies }) => {
   );
 };
 
-const NoMoviesResults = () => {
+const NoMoviesResults: FunctionComponent = (): ReactElement => {
   return <p>No movies found for this search!</p>;
 };
-
-export interface MovieProps {
-  movies: Movie[];
-}
-
-export interface Movie {
-  id: string;
-  title: string;
-  year: string;
-  posterUrl: string;
-}

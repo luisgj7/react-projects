@@ -1,6 +1,13 @@
-import { useDebounce, useSearch } from "../../hooks";
 import "./search.component.css";
-import { ChangeEvent, FormEvent, FunctionComponent, useEffect } from "react";
+import { useDebounce, useSearch } from "../../hooks";
+import { SearchProps } from "../../models";
+import {
+  ChangeEvent,
+  FormEvent,
+  FunctionComponent,
+  ReactElement,
+  useEffect,
+} from "react";
 
 export const Search: FunctionComponent<SearchProps> = ({
   placeHolder,
@@ -8,7 +15,7 @@ export const Search: FunctionComponent<SearchProps> = ({
   hideSearchButton = false,
   useTypeAhead = false,
   onSearchChange,
-}) => {
+}): ReactElement => {
   const { search, setSearch, error } = useSearch();
   const debouncedSearch = useDebounce<string>(search, ms);
 
@@ -21,7 +28,7 @@ export const Search: FunctionComponent<SearchProps> = ({
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     if (error) return;
-    
+
     onSearchChange(search);
   };
 
@@ -31,11 +38,11 @@ export const Search: FunctionComponent<SearchProps> = ({
     if (debouncedSearch && !error) {
       onSearchChange(debouncedSearch);
     }
-  }, [ useTypeAhead, search, debouncedSearch, error ]);
+  }, [useTypeAhead, debouncedSearch, error]);
 
   return (
-    <div className="search">
-      <form className="form" onSubmit={handleSubmit}>
+    <div className="search-content">
+      <form onSubmit={handleSubmit}>
         <input
           className={error ? "input-error" : ""}
           onChange={handleChange}
@@ -51,11 +58,3 @@ export const Search: FunctionComponent<SearchProps> = ({
     </div>
   );
 };
-
-export interface SearchProps {
-  placeHolder: string;
-  ms?: number;
-  hideSearchButton?: boolean;
-  useTypeAhead?: boolean;
-  onSearchChange: (search: string) => void;
-}
