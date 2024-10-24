@@ -19,6 +19,13 @@ export const Search: FunctionComponent<SearchProps> = ({
   const { search, setSearch, error } = useSearch();
   const debouncedSearch = useDebounce<string>(search, ms);
 
+  useEffect(() => {
+    if (!useTypeAhead) return;
+    if (error) return;
+
+    if (debouncedSearch.length > 2) onSearchChange(debouncedSearch);
+  }, [error, debouncedSearch, useTypeAhead]);
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const value: string = event.target.value;
     if (value.startsWith(" ")) return;
@@ -31,14 +38,6 @@ export const Search: FunctionComponent<SearchProps> = ({
 
     onSearchChange(search);
   };
-
-  useEffect(() => {
-    if (!useTypeAhead) return;
-
-    if (debouncedSearch && !error) {
-      onSearchChange(debouncedSearch);
-    }
-  }, [useTypeAhead, debouncedSearch, error]);
 
   return (
     <div className="search-content">

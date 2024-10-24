@@ -7,14 +7,10 @@ function App() {
   const [search, setSearch] = useState<string>("");
   const { movies, getMovies, loading } = useMovies({ search });
 
-  const handleSearchChange = (search: string): void => {
-    setSearch(search);
-  };
-
   useEffect(() => {
     if (!search) return;
 
-    getMovies();
+    getMovies(search);
   }, [search]);
 
   return (
@@ -23,11 +19,11 @@ function App() {
         <h1> Movies Searcher </h1>
         {
           <Search
-            useTypeAhead={false}
+            useTypeAhead={true}
             ms={650}
             hideSearchButton={false}
             placeHolder={"Avengers, Alien, Ironman..."}
-            onSearchChange={handleSearchChange}
+            onSearchChange={(search) => setSearch(search)}
           />
         }
       </header>

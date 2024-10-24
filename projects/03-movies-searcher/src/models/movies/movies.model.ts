@@ -29,5 +29,5 @@ export interface UseMoviesProps {
 export interface UseMoviesResult {
     movies: Movie[];
     loading: boolean;
-    getMovies: () => Promise<void>;
+    getMovies: (search: string) => Promise<void>;
 }

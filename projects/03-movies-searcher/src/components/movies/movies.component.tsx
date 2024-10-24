@@ -19,7 +19,7 @@ const MoviesList: FunctionComponent<MovieProps> = ({
         <li className="movie" key={movie.id}>
           <h3>{movie.title}</h3>
           <p>{movie.year}</p>
-          <img src={movie.posterUrl}></img>
+          <img src={movie.posterUrl} loading="lazy"></img>
         </li>
       ))}
     </ul>

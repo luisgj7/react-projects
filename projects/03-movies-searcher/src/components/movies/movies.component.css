@@ -22,4 +22,12 @@
 .movie img {
   border-radius: 8px;
   margin-top: 16px;
+  aspect-ratio: 2 / 3;
+  object-position: center;
+  object-fit: cover;
+}
+
+.movie .blur-load {
+    background-size: cover;
+    background-position: center;
 }
