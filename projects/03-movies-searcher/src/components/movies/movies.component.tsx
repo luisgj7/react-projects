@@ -1,7 +1,7 @@
 import "./movies.component.css";
 import { MovieProps } from "../../models";
 import { FC, ReactElement, useContext } from "react";
-import { FiltersContext } from "../../contexts/filters.context";
+import { FiltersContext } from "../../contexts";
 
 export const Movies: FC<MovieProps> = ({ movies }): ReactElement => {
   const hasMovies = (movies ?? []).length;
@@ -25,12 +25,10 @@ const MoviesList: FC<MovieProps> = ({ movies }): ReactElement => {
 
 const ShowMessageResult: FC = (): ReactElement => {
   const { filters } = useContext(FiltersContext);
-  return <MovieMessageResult message={getMessage(filters.search)} />;
+  return <MessageResult message={getMessage(filters.search)} />;
 };
 
-const MovieMessageResult: FC<{ message: string }> = ({
-  message,
-}): ReactElement => {
+const MessageResult: FC<{ message: string }> = ({ message }): ReactElement => {
   return <p>{message}</p>;
 };
 

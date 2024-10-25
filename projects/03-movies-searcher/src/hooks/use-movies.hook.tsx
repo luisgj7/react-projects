@@ -1,10 +1,10 @@
 import { useCallback, useContext, useRef, useState } from "react";
 import { apiModelToMovie } from "../adapters";
 import { searchMovies } from "../services";
-import { Movie, UseMoviesResult } from "../models";
-import { FiltersContext } from "../contexts/filters.context";
+import { Movie } from "../models";
+import { FiltersContext } from "../contexts";
 
-export function useMovies(): UseMoviesResult {
+export function useMovies() {
   const { filters } = useContext(FiltersContext);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState<boolean>(false);

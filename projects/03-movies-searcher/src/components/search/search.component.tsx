@@ -10,7 +10,8 @@ import {
   useEffect,
   useState,
 } from "react";
-import { FiltersContext } from "../../contexts/filters.context";
+import { FiltersContext } from "../../contexts";
+
 
 export const Search: FC<SearchProps> = ({
   placeHolder,
@@ -31,8 +32,8 @@ export const Search: FC<SearchProps> = ({
     onSearchChange(query);
   }, [error, query, useTypeAhead]);
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    const value: string = event.target.value;
+  const handleChange = ({ target }: ChangeEvent<HTMLInputElement>): void => {
+    const { value } = target;
     if (value.startsWith(" ")) return;
     setSearch(value);
   };

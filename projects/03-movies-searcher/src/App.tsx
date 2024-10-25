@@ -8,14 +8,14 @@ function App() {
   return (
     <div className="page">
       <header>
-        <h1> Movies Searcher </h1>
+        <h1> Movies Searcher </h1>˝
         {
           <Search
             useTypeAhead={true}
             ms={650}
             hideSearchButton={false}
             placeHolder={"Avengers, Alien, Ironman..."}
-            onSearchChange={(search: string) => getMovies(search)}
+            onSearchChange={(search) => getMovies(search)}
           />
         }
       </header>
