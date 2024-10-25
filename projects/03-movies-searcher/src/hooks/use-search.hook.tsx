@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 
-export function useSearch() {
-  const [ search, setSearch ] = useState<string>("");
+export function useSearchValidation(search: string) {
   const [ error, setError ] = useState<string | null>(null);
+  const [ query, setQuery ] = useState<string | null>(null);
   const isFirstInput = useRef<boolean>(true);
 
   useEffect(() => {
@@ -11,7 +11,7 @@ export function useSearch() {
       return;
     }
 
-    if (search === "") {
+    if (search.trim() === "") {
       setError("Enter a movie");
       return;
     }
@@ -21,13 +21,14 @@ export function useSearch() {
       return;
     }
 
-    if (search.length < 3) {
+    if (search.trim().length < 3) {
       setError("The search should be at least 3 characters");
       return;
     }
 
+    setQuery(search);
     setError(null);
   }, [search]);
 
-  return { search, setSearch, error };
+  return { query, error };
 }

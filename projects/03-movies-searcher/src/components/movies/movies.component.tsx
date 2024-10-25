@@ -1,18 +1,15 @@
 import "./movies.component.css";
 import { MovieProps } from "../../models";
-import { FunctionComponent, ReactElement } from "react";
+import { FC, ReactElement, useContext } from "react";
+import { FiltersContext } from "../../contexts/filters.context";
 
-export const Movies: FunctionComponent<MovieProps> = ({
-  movies,
-}): ReactElement => {
+export const Movies: FC<MovieProps> = ({ movies }): ReactElement => {
   const hasMovies = (movies ?? []).length;
 
-  return hasMovies ? <MoviesList movies={movies} /> : <NoMoviesResults />;
+  return hasMovies ? <MoviesList movies={movies} /> : <ShowMessageResult />;
 };
 
-const MoviesList: FunctionComponent<MovieProps> = ({
-  movies,
-}): ReactElement => {
+const MoviesList: FC<MovieProps> = ({ movies }): ReactElement => {
   return (
     <ul className="movies">
       {movies.map((movie) => (
@@ -26,6 +23,19 @@ const MoviesList: FunctionComponent<MovieProps> = ({
   );
 };
 
-const NoMoviesResults: FunctionComponent = (): ReactElement => {
-  return <p>No movies found for this search!</p>;
+const ShowMessageResult: FC = (): ReactElement => {
+  const { filters } = useContext(FiltersContext);
+  return <MovieMessageResult message={getMessage(filters.search)} />;
+};
+
+const MovieMessageResult: FC<{ message: string }> = ({
+  message,
+}): ReactElement => {
+  return <p>{message}</p>;
+};
+
+const getMessage = (search: string): string => {
+  return search.length
+    ? "No movies found for this search!"
+    : "Please enter a movie name";
 };

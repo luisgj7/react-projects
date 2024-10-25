@@ -22,10 +22,6 @@ export interface MovieProps {
     movies: Movie[];
 }
 
-export interface UseMoviesProps {
-    search: string;
-}
-
 export interface UseMoviesResult {
     movies: Movie[];
     loading: boolean;

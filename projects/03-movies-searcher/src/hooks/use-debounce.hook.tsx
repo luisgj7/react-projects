@@ -5,6 +5,7 @@ export function useDebounce<T>(value: T, delay: number): T {
     const lastValueRef = useRef<T>(value);
   
     useEffect(() => {
+      if (!value) return;
       // If the value does not change, it should not continue.
       if (lastValueRef.current === value) return;
   
@@ -16,7 +17,6 @@ export function useDebounce<T>(value: T, delay: number): T {
       // Cleanup
       return () => {
         clearTimeout(handler);
-        console.log('cleanup:', handler);
       };
     }, [value, delay]);
   

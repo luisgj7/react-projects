@@ -1,17 +1,9 @@
 import "./App.css";
-import { useEffect, useState } from "react";
 import { Movies, Search } from "./components";
 import { useMovies } from "./hooks";
 
 function App() {
-  const [search, setSearch] = useState<string>("");
-  const { movies, getMovies, loading } = useMovies({ search });
-
-  useEffect(() => {
-    if (!search) return;
-
-    getMovies(search);
-  }, [search]);
+  const { movies, getMovies, loading } = useMovies();
 
   return (
     <div className="page">
@@ -23,7 +15,7 @@ function App() {
             ms={650}
             hideSearchButton={false}
             placeHolder={"Avengers, Alien, Ironman..."}
-            onSearchChange={(search) => setSearch(search)}
+            onSearchChange={(search: string) => getMovies(search)}
           />
         }
       </header>

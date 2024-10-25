@@ -1,30 +1,35 @@
 import "./search.component.css";
-import { useDebounce, useSearch } from "../../hooks";
+import { useDebounce, useSearchValidation } from "../../hooks";
 import { SearchProps } from "../../models";
 import {
   ChangeEvent,
+  FC,
   FormEvent,
-  FunctionComponent,
   ReactElement,
+  useContext,
   useEffect,
+  useState,
 } from "react";
+import { FiltersContext } from "../../contexts/filters.context";
 
-export const Search: FunctionComponent<SearchProps> = ({
+export const Search: FC<SearchProps> = ({
   placeHolder,
   ms = 500,
   hideSearchButton = false,
   useTypeAhead = false,
   onSearchChange,
 }): ReactElement => {
-  const { search, setSearch, error } = useSearch();
-  const debouncedSearch = useDebounce<string>(search, ms);
+  const [search, setSearch] = useState<string>("");
+  const debouncedSearch = useDebounce(search, ms);
+  const { query, error } = useSearchValidation(debouncedSearch);
+  const { setFilters } = useContext(FiltersContext);
 
   useEffect(() => {
-    if (!useTypeAhead) return;
-    if (error) return;
+    if (!useTypeAhead || error || !query) return;
 
-    if (debouncedSearch.length > 2) onSearchChange(debouncedSearch);
-  }, [error, debouncedSearch, useTypeAhead]);
+    setFilters({ search: query });
+    onSearchChange(query);
+  }, [error, query, useTypeAhead]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const value: string = event.target.value;
@@ -34,9 +39,10 @@ export const Search: FunctionComponent<SearchProps> = ({
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    if (error) return;
+    if (error || !query) return;
 
-    onSearchChange(search);
+    setFilters({ search: query });
+    onSearchChange(query);
   };
 
   return (

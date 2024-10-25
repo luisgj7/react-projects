@@ -1,14 +1,16 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useContext, useRef, useState } from "react";
 import { apiModelToMovie } from "../adapters";
 import { searchMovies } from "../services";
-import { Movie, UseMoviesProps, UseMoviesResult } from "../models";
+import { Movie, UseMoviesResult } from "../models";
+import { FiltersContext } from "../contexts/filters.context";
 
-export function useMovies({ search }: UseMoviesProps): UseMoviesResult {
+export function useMovies(): UseMoviesResult {
+  const { filters } = useContext(FiltersContext);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   // Allows to create a mutable reference during the life cycle hook component
-  const previusSearch = useRef(search);
+  const previusSearch = useRef(filters.search);
 
   const getMovies = useCallback(async (search: string) => {
     if (search === previusSearch.current) return;
