@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="page">
       <header>
-        <h1> Movies Searcher </h1>˝
+        <h1> Movies Searcher </h1>
         {
           <Search
             useTypeAhead={true}
