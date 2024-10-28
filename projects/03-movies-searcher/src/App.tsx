@@ -12,7 +12,7 @@ function App() {
         {
           <Search
             useTypeAhead={true}
-            ms={650}
+            ms={450}
             hideSearchButton={false}
             placeHolder={"Avengers, Alien, Ironman..."}
             onSearchChange={(search) => getMovies(search)}

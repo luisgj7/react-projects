@@ -1,6 +1,7 @@
 import {
   createContext,
   Dispatch,
+  FC,
   ReactElement,
   SetStateAction,
   useState,
@@ -16,7 +17,7 @@ const defaultFilterContext: FiltersState = {
 
 export const FiltersContext = createContext<FiltersState>(defaultFilterContext);
 
-export function FilterProvider({ children }: FilterContextProps) {
+export const FilterProvider: FC<FilterContextProps> = ({ children }) => {
   const [filters, setFilters] = useState<Filters>(defaultFilterContext.filters);
   return (
     <FiltersContext.Provider
@@ -28,7 +29,7 @@ export function FilterProvider({ children }: FilterContextProps) {
       {children}
     </FiltersContext.Provider>
   );
-}
+};
 
 interface FilterContextProps {
   children: ReactElement;

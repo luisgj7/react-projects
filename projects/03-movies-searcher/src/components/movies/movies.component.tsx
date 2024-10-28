@@ -3,6 +3,8 @@ import { MovieProps } from "../../models";
 import { FC, ReactElement, useContext } from "react";
 import { FiltersContext } from "../../contexts";
 
+const IMG_NOT_FOUND_URL = import.meta.env.VITE_IMG_NOT_FOUND_URL;
+
 export const Movies: FC<MovieProps> = ({ movies }): ReactElement => {
   const hasMovies = (movies ?? []).length;
 
@@ -12,11 +14,18 @@ export const Movies: FC<MovieProps> = ({ movies }): ReactElement => {
 const MoviesList: FC<MovieProps> = ({ movies }): ReactElement => {
   return (
     <ul className="movies">
-      {movies.map((movie) => (
-        <li className="movie" key={movie.id}>
-          <h3>{movie.title}</h3>
-          <p>{movie.year}</p>
-          <img src={movie.posterUrl} loading="lazy"></img>
+      {movies.map(({ id, title, year, posterUrl }) => (
+        <li className="movie" key={id}>
+          <h3>{title}</h3>
+          <p>{year}</p>
+          <img
+            loading="lazy"
+            src={posterUrl}
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null; // prevents looping
+              currentTarget.src = IMG_NOT_FOUND_URL;
+            }}
+          ></img>
         </li>
       ))}
     </ul>
