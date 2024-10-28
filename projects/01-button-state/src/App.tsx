@@ -1,36 +1,36 @@
-import { useEffect, useState } from "react";
 import "./App.css";
+import { useEffect } from "react";
 import { Card } from "./components";
-import { UserService } from "./services";
+import { useUser } from "./hooks/user-user.hook";
 
 function App() {
-  const [users, setUsers] = useState<User[]>([]);
+  const { users, fetchUsers, loading, error } = useUser();
 
   useEffect(() => {
-    const userService = new UserService();
-    userService.getUsers().then((usersData) => setUsers(usersData));
-  }, []);
+    fetchUsers();
+  }, [fetchUsers]);
 
   return (
-    <section className="app">
-      {users.map(({ username, name, initialIsFollowing, avatarUrl }) => (
-        <Card
-          key={username}
-          username={username}
-          name={name}
-          isFollowing={initialIsFollowing}
-          avatarUrl={avatarUrl}
-        ></Card>
-      ))}
-    </section>
+    <>
+      { loading && <p>Loading...</p> }
+      { error 
+        ?  <p>{JSON.stringify(error)}</p>
+        :  <section className="app">
+            { 
+              users.map(({ username, name, initialIsFollowing, avatarUrl }) => (
+                <Card
+                  key={username}
+                  username={username}
+                  name={name}
+                  isFollowing={initialIsFollowing}
+                  avatarUrl={avatarUrl}
+                ></Card>
+               )) 
+            }
+            </section> 
+        }
+    </>
   );
 }
 
 export default App;
-
-export interface User {
-  username: string;
-  name: string;
-  initialIsFollowing: boolean;
-  avatarUrl: string;
-}
