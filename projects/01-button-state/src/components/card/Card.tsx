@@ -1,9 +1,8 @@
 import "./Card.css";
 import { Avatar } from "../avatar/Avatar";
 import { Button } from "../button/Button";
-import { FC } from "react";
 
-export const Card: FC<CardProps> = ({ username, name, isFollowing, avatarUrl }) => {
+export const Card = ({ username, name, isFollowing, avatarUrl }: CardProps) => {
   return (
     <article className="tw-followCard">
       <header className="tw-followCard-header">

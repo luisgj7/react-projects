@@ -8,16 +8,19 @@ export const useUser = () => {
 
   const fetchUsers = useCallback(async () => {
     setLoading(true);
-    try {
-      const userService = new UserService();
-      const users = await userService.getUsers();
-      setUsers(users);
-    } catch (error) {
-      setLoading(false);
-      setError(error as Error);
-    } finally {
-      setLoading(false);
-    }
+    setTimeout(async () => {
+      try {
+        const userService = new UserService();
+        const users = await userService.getUsers();
+        setUsers(users);
+      } catch (error) {
+        setLoading(false);
+        setError(error as Error);
+      } finally {
+        setLoading(false);
+      }
+    }, 1500)
+    
   }, []);
 
   return { users, fetchUsers, loading, error };

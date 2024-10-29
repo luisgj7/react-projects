@@ -1,7 +1,7 @@
 import "./Button.css";
-import { FC, useState } from "react";
+import { useState } from "react";
 
-export const Button: FC<ButtonProps> = ({ initialIsFollowing }) => {
+export const Button = ({ initialIsFollowing }: Props) => {
   const [isFollowing, setIsFollowing] = useState(initialIsFollowing);
 
   const { text, buttonClassName } = isFollowing
@@ -25,6 +25,6 @@ export const Button: FC<ButtonProps> = ({ initialIsFollowing }) => {
   );
 };
 
-interface ButtonProps {
+interface Props {
   initialIsFollowing: boolean;
 }
