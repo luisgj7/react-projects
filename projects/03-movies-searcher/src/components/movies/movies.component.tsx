@@ -1,17 +1,16 @@
 import "./movies.component.css";
 import { MovieProps } from "../../models";
-import { FC, ReactElement, useContext } from "react";
+import { ReactElement, ReactNode, useContext } from "react";
 import { FiltersContext } from "../../contexts";
 
 const IMG_NOT_FOUND_URL = import.meta.env.VITE_IMG_NOT_FOUND_URL;
 
-export const Movies: FC<MovieProps> = ({ movies }): ReactElement => {
+export const Movies = ({ movies }: MovieProps): ReactElement => {
   const hasMovies = (movies ?? []).length;
-
   return hasMovies ? <MoviesList movies={movies} /> : <ShowMessageResult />;
 };
 
-const MoviesList: FC<MovieProps> = ({ movies }): ReactElement => {
+const MoviesList = ({ movies }: MovieProps): ReactElement => {
   return (
     <ul className="movies">
       {movies.map(({ id, title, year, posterUrl }) => (
@@ -32,13 +31,15 @@ const MoviesList: FC<MovieProps> = ({ movies }): ReactElement => {
   );
 };
 
-const ShowMessageResult: FC = (): ReactElement => {
+const ShowMessageResult = (): ReactElement => {
   const { filters } = useContext(FiltersContext);
-  return <MessageResult message={getMessage(filters.search)} />;
+  return <MessageResult> 
+          <p>{ getMessage(filters.search) }</p>
+        </MessageResult>
 };
 
-const MessageResult: FC<{ message: string }> = ({ message }): ReactElement => {
-  return <p>{message}</p>;
+const MessageResult = ({children}: MessageProps): ReactElement => {
+  return <>{children}</>;
 };
 
 const getMessage = (search: string): string => {
@@ -46,3 +47,7 @@ const getMessage = (search: string): string => {
     ? "No movies found for this search!"
     : "Please enter a movie name";
 };
+
+interface MessageProps {
+  children: ReactNode;
+}
