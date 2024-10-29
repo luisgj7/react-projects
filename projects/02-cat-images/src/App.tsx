@@ -4,15 +4,11 @@ import { useCatFact, useCatImage } from "./hooks";
 function App() {
   const { fact, refreshFact } = useCatFact();
   const { imageUrl } = useCatImage({ fact });
-
-  const handleClick = () => {
-    refreshFact();
-  };
  
   return (
     <main>
       <h1> Kitty's App</h1>
-      <button onClick={handleClick}> Get Fact!</button>
+      <button onClick={() => refreshFact()}> Get Fact!</button>
 
       {fact && <p>{fact}</p>}
       {imageUrl && (
