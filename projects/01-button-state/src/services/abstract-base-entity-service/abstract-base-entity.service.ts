@@ -16,7 +16,8 @@ export class AbstractBaseEntityService {
       return {
         data: null as unknown as T,
         error: true,
-        errorType: (error as Error).message || "Unknown error",
+        errorType: error as Error,
+        errorMessage: (error as Error).message || "Unknown error",
         sysDateTimeUTC: Date.now(),
       };
     }
@@ -26,6 +27,9 @@ export class AbstractBaseEntityService {
 export interface BaseEntityResponse<T> {
   data: T;
   error: boolean;
-  errorType: string;
+  errorType: ErrorType
+  errorMessage: string;
   sysDateTimeUTC: number;
 }
+
+type ErrorType = Error | undefined;
